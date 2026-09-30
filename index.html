@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokémon Card Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="pokeball-logo"><span></span></div>
+    <div><strong>Poké<span>mon</span></strong><small>Card Lab</small></div>
+  </div>
+
+  <nav class="menu">
+    <button class="menu-item active" data-page="home"><i>⌂</i><span>Home</span></button>
+    <button class="menu-item" data-page="collection"><i>▥</i><span>Collection</span></button>
+    <button class="menu-item" data-page="info"><i>ⓘ</i><span>Info</span></button>
+    <button class="menu-item" data-page="mystery"><i>?</i><span>Mystery Card</span></button>
+    <button class="menu-item" data-page="battle"><i>⚔</i><span>Battle</span></button>
+    <button class="menu-item" data-page="pokemon"><i>⌕</i><span>Search Pokémon</span></button>
+    <button class="menu-item" data-page="type"><i>◉</i><span>Search by Type</span></button>
+    <button class="menu-item" data-page="settings"><i>⚙</i><span>Settings</span></button>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="side-pokeball">◉</div>
+    <strong>Gotta collect 'em all!</strong>
+    <small>Discover, battle & collect.</small>
+  </div>
+</aside>
+
+<main class="main-content">
+  <header class="top-header">
+    <div class="global-search">
+      <span>⌕</span>
+      <input id="globalSearch" placeholder="Search Pokémon by name or ID..." autocomplete="off">
+    </div>
+    <div class="trainer">
+      <div class="trainer-avatar">⚡</div>
+      <span>PokéTrainer</span><b>⌄</b>
+    </div>
+  </header>
+
+  <!-- HOME -->
+  <section class="page active" id="homePage">
+    <div class="home-grid">
+      <section class="home-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">WELCOME BACK,</p>
+          <h1>PokéTrainer! <span>✦</span></h1>
+          <p>Explore the world of Pokémon. Collect your favorites, discover new cards, and battle with friends!</p>
+          <div class="hero-actions">
+            <button class="gradient-btn" data-go="pokemon">✦ Search Pokémon</button>
+            <button class="ghost-btn" data-go="mystery">🎁 Mystery Card</button>
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="moon"></div>
+          <div class="mountain m1"></div><div class="mountain m2"></div>
+          <div class="pikachu-art">⚡</div>
+        </div>
+      </section>
+
+      <aside class="progress-panel">
+        <h3>Collection Progress</h3>
+        <div class="progress-row">
+          <div class="ring"><span>24%</span></div>
+          <div><strong>37 / 151</strong><small>Pokémon Collected</small></div>
+        </div>
+        <h4>By Type</h4>
+        <div class="type-mini">
+          <div><span class="type-dot fire"></span>Fire<b>8</b></div>
+          <div><span class="type-dot water"></span>Water<b>7</b></div>
+          <div><span class="type-dot grass"></span>Grass<b>9</b></div>
+          <div><span class="type-dot electric"></span>Electric<b>5</b></div>
+          <div><span class="type-dot psychic"></span>Psychic<b>4</b></div>
+          <div><span class="type-dot other"></span>Others<b>4</b></div>
+        </div>
+      </aside>
+
+      <div class="home-cards">
+        <button class="home-card" data-go="pokemon"><span class="home-icon blue">▣</span><h3>Search Pokémon</h3><p>Find any Pokémon by name or ID.</p><b>›</b></button>
+        <button class="home-card" data-go="type"><span class="home-icon purple">✦</span><h3>Search by Type</h3><p>See every Pokémon belonging to a type.</p><b>›</b></button>
+        <button class="home-card" data-go="battle"><span class="home-icon violet">⚔</span><h3>Battle</h3><p>Choose two Pokémon and start a battle.</p><b>›</b></button>
+        <button class="home-card" data-go="mystery"><span class="home-icon teal">?</span><h3>Mystery Card</h3><p>Open a mystery box and reveal a random card.</p><b>›</b></button>
+      </div>
+
+      <section class="recent-panel">
+        <div class="section-heading"><h3>Recent Cards</h3><button data-go="pokemon">View all</button></div>
+        <div class="recent-cards" id="recentCards"></div>
+      </section>
+    </div>
+  </section>
+
+  <!-- SEARCH POKEMON -->
+  <section class="page" id="pokemonPage">
+    <div class="page-title">
+      <div class="title-icon">⌕</div>
+      <div><p class="eyebrow">POKÉMON SEARCH</p><h1>Search Pokémon</h1><p>Search a Pokémon by name or Pokédex number.</p></div>
+    </div>
+    <div class="search-bar-panel">
+      <div class="search-box large"><input id="searchInput" placeholder="Search Pokémon name or ID..." autocomplete="off"><button id="searchBtn">Search</button></div>
+      <p>Try <button class="inline-search" data-search="pikachu">Pikachu</button>, <button class="inline-search" data-search="charizard">Charizard</button> or <button class="inline-search" data-search="25">25</button></p>
+    </div>
+    <div id="pokemonSearchResult" class="pokemon-result"></div>
+  </section>
+
+  <!-- SEARCH BY TYPE -->
+  <section class="page" id="typePage">
+    <div class="page-title">
+      <div class="title-icon purple-icon">◉</div>
+      <div><p class="eyebrow">TYPE EXPLORER</p><h1>Search by Type</h1><p>Select a type to display all Pokémon of that type.</p></div>
+    </div>
+    <div class="type-selector" id="typeButtons"></div>
+    <div class="type-status" id="selectedType">Choose a Pokémon type above</div>
+    <div id="typeCards" class="cards-grid"></div>
+  </section>
+
+  <!-- MYSTERY -->
+  <section class="page" id="mysteryPage">
+    <div class="page-title">
+      <div class="title-icon mystery-icon">?</div>
+      <div><p class="eyebrow">MYSTERY LAB</p><h1>Mystery Card</h1><p>Think you can guess what's inside?</p></div>
+    </div>
+
+    <div class="mystery-layout">
+      <div class="mystery-stage">
+        <div class="mystery-glow"></div>
+        <div class="mystery-card-wrap">
+          <div class="mystery-card" id="mysteryCard">
+            <div class="mystery-side-card back">
+              <div class="mystery-pokeball">?</div>
+              <span>POKÉMON</span><strong>MYSTERY</strong><small>✦ CARD LAB ✦</small>
+            </div>
+            <div class="mystery-side-card front" id="mysteryFront"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mystery-instruction">
+        <h2>Reveal the Mystery</h2>
+        <p>Click the card to reveal a random Pokémon from the first 151 Pokémon!</p>
+        <button class="gradient-btn wide" id="mysteryBtn">Reveal Card</button>
+      </div>
+
+      <aside class="rarity-panel">
+        <h3>Possible Rarities</h3>
+        <div><i class="rarity common">◉</i>Common</div>
+        <div><i class="rarity uncommon">★</i>Uncommon</div>
+        <div><i class="rarity rare">★</i>Rare</div>
+        <div><i class="rarity epic">★</i>Epic</div>
+        <div><i class="rarity legendary">♛</i>Legendary</div>
+      </aside>
+    </div>
+    <div class="mystery-history-panel"><h3>Recent Reveals</h3><div id="mysteryHistory" class="history-list"></div></div>
+  </section>
+
+  <!-- BATTLE -->
+  <section class="page" id="battlePage">
+    <div class="battle-heading">
+      <div class="page-title">
+        <div class="title-icon battle-icon">⚔</div>
+        <div><p class="eyebrow">BATTLE LAB</p><h1>Pokémon Battle</h1><p>Choose your Pokémon and let the battle begin!</p></div>
+      </div>
+      <button class="back-home" data-go="home">← Back to Home</button>
+    </div>
+
+    <div class="battle-searches">
+      <div class="battle-search blue-border"><label>Your Pokémon</label><div><span>⌕</span><input id="battleOne" placeholder="Pikachu" autocomplete="off"></div></div>
+      <div class="vs-small">VS</div>
+      <div class="battle-search red-border"><label>Opponent</label><div><span>⌕</span><input id="battleTwo" placeholder="Charizard" autocomplete="off"></div></div>
+    </div>
+
+    <div id="battleResult" class="battle-arena"></div>
+    <button class="gradient-btn battle-start" id="battleBtn">⚔ Start Battle</button>
+  </section>
+
+  <!-- COLLECTION -->
+  <section class="page" id="collectionPage">
+    <div class="collection-header">
+      <div class="page-title">
+        <div class="title-icon collection-icon">▥</div>
+        <div><p class="eyebrow">YOUR COLLECTION</p><h1>My Collection</h1><p>Search for Pokémon and add your favorites to your personal collection.</p></div>
+      </div>
+      <div class="collection-count" id="collectionCount">0 / 151 Collected</div>
+    </div>
+
+    <div class="collection-search-panel">
+      <div class="collection-search-box">
+        <span>⌕</span>
+        <input id="collectionSearchInput" placeholder="Search Pokémon to add..." autocomplete="off">
+        <button id="collectionSearchBtn">Search</button>
+      </div>
+      <p>Search by Pokémon name or Pokédex number, then add it to your collection.</p>
+      <div id="collectionSearchResult"></div>
+    </div>
+
+    <div class="collection-toolbar">
+      <div><h2>Collected Pokémon</h2><p id="collectionSubtitle">Your saved Pokémon will appear here.</p></div>
+      <button class="clear-collection" id="clearCollectionBtn">Clear Collection</button>
+    </div>
+    <div id="collectionCards" class="collection-grid"></div>
+  </section>
+
+  <!-- INFO / EVOLUTION -->
+  <section class="page" id="infoPage">
+    <div class="page-title">
+      <div class="title-icon purple-icon">ⓘ</div>
+      <div>
+        <p class="eyebrow">POKÉMON INFO</p>
+        <h1>Pokémon Evolution Info</h1>
+        <p>Search a Pokémon to see every evolution phase in its evolution family.</p>
+      </div>
+    </div>
+
+    <div class="info-search-panel">
+      <div class="search-box large">
+        <input id="infoSearchInput" placeholder="Search Pokémon name or ID..." autocomplete="off">
+        <button id="infoSearchBtn">Search</button>
+      </div>
+      <p>Try <button class="inline-search info-example" data-search="pikachu">Pikachu</button>,
+        <button class="inline-search info-example" data-search="eevee">Eevee</button> or
+        <button class="inline-search info-example" data-search="charizard">Charizard</button>.</p>
+    </div>
+
+    <div id="infoResult" class="info-result">
+      <div class="info-empty">
+        <div class="info-empty-icon">↗</div>
+        <h2>Discover an evolution family</h2>
+        <p>Search for any Pokémon and we'll show its complete evolution path, including pre-evolutions and branching evolutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETTINGS PLACEHOLDER -->
+  <section class="page" id="settingsPage">
+    <div class="page-title"><div class="title-icon">⚙</div><div><p class="eyebrow">SETTINGS</p><h1>Settings</h1><p>Dashboard preferences.</p></div></div>
+    <div class="settings-panel"><label><input type="checkbox" checked> Animated card effects</label><label><input type="checkbox" checked> Show Pokémon artwork</label></div>
+  </section>
+</main>
+
+<!-- DETAIL MODAL -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-modal">
+    <button class="detail-close" id="detailClose">×</button>
+    <div class="detail-card-art" id="detailCardArt"></div>
+    <div class="detail-main" id="detailMain"></div>
+    <div class="detail-side" id="detailSide"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
